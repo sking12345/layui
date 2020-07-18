@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <link rel="stylesheet" href="./layui/css/admin.css">
+</head>
+
+<body class="layui-layout-body hide">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">layui 后台布局</div>
+            <ul class="layui-nav layui-layout-left " id="head_menu">
+                <li class="layui-nav-item">
+                    <a lay-href="javascript:;" class="layui-icon layui-icon-shrink-right" lay-active="app_flexible">
+                    </a>
+                </li>
+
+                <li class="layui-nav-item" v-for="menu in menu_list">
+                   <a>
+                     {{ menu.name }}
+                        <span class="layui-badge"> {{ menu.badge }}</span>
+                    </a>
+                </li>
+
+           <!--      <li class="layui-nav-item"><a lay-href="">商品管理</a></li>
+                <li class="layui-nav-item"><a lay-href="">用户</a></li>
+                <li class="layui-nav-item">
+                    <a lay-href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a lay-href="">邮件管理</a></dd>
+                        <dd><a lay-href="">消息管理</a></dd>
+                        <dd><a lay-href="">授权管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a lay-href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a lay-href="">邮件管理</a></dd>
+                        <dd><a lay-href="">消息管理</a></dd>
+                        <dd><a lay-href="">授权管理</a></dd>
+                    </dl>
+                </li> -->
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a lay-href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        贤心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a lay-href="">基本资料</a></dd>
+                        <dd><a lay-href="">安全设置</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <div class="layui-side layui-bg-black" id="menu_list">
+            <div class="layui-side-scroll">
+                <div class="layui-logo" lay-href="home/console.html">
+                    <span>layuiAdmin</span>
+                </div>
+                <ul class="layui-nav layui-nav-tree">
+                    <li data-name="home" class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">
+                            <i class="layui-icon layui-icon-home"></i>
+                            <cite>主页</cite>
+                            <span class="layui-nav-more"></span></a>
+                        <dl class="layui-nav-child">
+                            <dd >
+                                <a lay-active="app_request" lay-href="home/console.html">控制台</a>
+                            </dd>
+                            <dd>
+                                <a lay-active="app_request" lay-href="home/homepage1.html">主页一</a>
+                            </dd>
+                            <dd >
+                                <a lay-active="app_request" lay-href="home/homepage2.html">主页二</a>
+                            </dd>
+                        </dl>
+                    </li>
+         
+                    <span class="layui-nav-bar" style="top: 28px; height: 0px; opacity: 0;"></span>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" id="layui-body">
+            <div class="layui-tab layui-tab-brief main-layout-tab">
+                <ul class="layui-tab-title">
+                    <li class="welcome">后台主页<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
+                    <li lay-id="3" class="">文章管理<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
+                    <li lay-id="9" class="">单页管理<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
+                    <li lay-id="4" class="layui-this">邮件系统<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
+                </ul>
+            </div>
+            <div style="padding: 15px;">
+                sssss
+            </div>
+        </div>
+    </div>
+    <script src="./layui/layui.js"></script>
+    <script src="./layui/vue.min.js"></script>
+    <script src="./layui/main.js"></script>
+    <script>
+    var memu_list = {"menu_list":{"0":{"name":"\u63a7\u5236\u53f0","icon":"layui-icon layui-icon-home","badge":"12","childs":{"0":{"name":"\u4e3b\u9875","icon":"layui-icon layui-icon-home","badge":"12"},"1":{"name":"\u7ec4\u4ef6","icon":"icon","badge":"12"}}},"1":{"name":"\u63a7\u5236\u53f01","icon":"layui-icon layui-icon-home","badge":"12","childs":{"0":{"name":"\u4e3b\u98751","icon":"layui-icon layui-icon-home","badge":"12"},"1":{"name":"\u7ec4\u4ef61","icon":"icon","badge":"12"}}}},"type":"1"};
+
+
+
+    //JavaScript代码区域
+    layui.use(['layer', 'util', "element"], function() {
+
+        plt.vue_option("#head_menu",memu_list);
+
+        var element = layui.element;
+        var layer = layui.layer,
+            $ = layui.jquery;
+        var util = layui.util;
+        util.event('lay-active', {
+            app_flexible: function() {
+                if ($(this).hasClass("layui-icon-shrink-right")) {
+                    $(this).removeClass("layui-icon-shrink-right");
+                    $(this).addClass("layui-icon-spread-left");
+                    $("#menu_list").addClass("hide");
+                    $("#layui-body").addClass("layui-body-all");
+                    $("#layui-body").removeClass("layui-body");
+                } else {
+                    $(this).removeClass("layui-icon-spread-left");
+                    $(this).addClass("layui-icon-shrink-right");
+                    $("#menu_list").removeClass("hide");
+                    $("#layui-body").addClass("layui-body");
+                    $("#layui-body").removeClass("layui-body-all");
+                }
+            },
+            app_request:function(){
+               var href = $(this).attr("lay-href");
+               alert(href);
+            }
+        });
+    });
+    </script>
+</body>
+</html>
+
+
+
+
