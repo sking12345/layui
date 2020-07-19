@@ -10,6 +10,19 @@ $menu_list = [
 				"name" => "主页",
 				"icon" => "layui-icon layui-icon-home",
 				"badge" => "12",
+				"childs" => [
+					[
+						"name" => "主页",
+						"icon" => "layui-icon layui-icon-home",
+						"badge" => "12",
+					],
+					[
+						"name" => "主页",
+						"icon" => "layui-icon layui-icon-home",
+						"badge" => "12",
+					],
+
+				],
 			],
 			[
 				"name" => "组件",
@@ -24,9 +37,22 @@ $menu_list = [
 		"badge" => "12",
 		"childs" => [
 			[
-				"name" => "主页1",
+				"name" => "主页12",
 				"icon" => "layui-icon layui-icon-home",
 				"badge" => "12",
+				"childs" => [
+					[
+						"name" => "主页12",
+						"icon" => "layui-icon layui-icon-home",
+						"badge" => "12",
+					],
+					[
+						"name" => "主页12",
+						"icon" => "layui-icon layui-icon-home",
+						"badge" => "12",
+					],
+
+				],
 			],
 			[
 				"name" => "组件1",
@@ -37,4 +63,10 @@ $menu_list = [
 	],
 ];
 
-echo json_encode(["menu_list" => $menu_list, "type" => "1"], JSON_FORCE_OBJECT);
+echo json_encode(["list" => $menu_list, "type" => "1"], JSON_UNESCAPED_UNICODE);
+
+?>
+
+
+
+

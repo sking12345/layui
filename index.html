@@ -19,14 +19,14 @@
                     </a>
                 </li>
 
-                <li class="layui-nav-item" v-for="menu in menu_list">
-                   <a>
-                     {{ menu.name }}
+                <li class="layui-nav-item" v-for="(menu, key) in menu_list">
+                   <a lay-active="head_menu_click" :id="key">
+                     {{ menu.name }} 
                         <span class="layui-badge"> {{ menu.badge }}</span>
                     </a>
                 </li>
 
-           <!--      <li class="layui-nav-item"><a lay-href="">商品管理</a></li>
+                <li class="layui-nav-item"><a lay-href="">商品管理</a></li>
                 <li class="layui-nav-item"><a lay-href="">用户</a></li>
                 <li class="layui-nav-item">
                     <a lay-href="javascript:;">其它系统</a>
@@ -43,12 +43,12 @@
                         <dd><a lay-href="">消息管理</a></dd>
                         <dd><a lay-href="">授权管理</a></dd>
                     </dl>
-                </li> -->
+                </li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
                     <a lay-href="javascript:;">
-                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        <!-- <img src="http://t.cn/RCzsdCq" class="layui-nav-img"> -->
                         贤心
                     </a>
                     <dl class="layui-nav-child">
@@ -63,36 +63,32 @@
                 <div class="layui-logo" lay-href="home/console.html">
                     <span>layuiAdmin</span>
                 </div>
+
                 <ul class="layui-nav layui-nav-tree">
-                    <li data-name="home" class="layui-nav-item layui-nav-itemed">
+                    <li  v-for="(menu,key) in menu_side" class="layui-nav-item"  lay-active="side_li_click">
                         <a href="javascript:;">
                             <i class="layui-icon layui-icon-home"></i>
-                            <cite>主页</cite>
+                            <cite>{{menu.name}}</cite>
                             <span class="layui-nav-more"></span></a>
                         <dl class="layui-nav-child">
-                            <dd >
-                                <a lay-active="app_request" lay-href="home/console.html">控制台</a>
+                            <dd class="app_request" v-for="(menu1,key1) in menu.childs">
+                                <a lay-active="app_request" lay-href="home/console.html">
+                                    <cite>{{menu1.name}}</cite>
+                                </a>
                             </dd>
-                            <dd>
-                                <a lay-active="app_request" lay-href="home/homepage1.html">主页一</a>
-                            </dd>
-                            <dd >
-                                <a lay-active="app_request" lay-href="home/homepage2.html">主页二</a>
-                            </dd>
+                            
                         </dl>
                     </li>
-         
                     <span class="layui-nav-bar" style="top: 28px; height: 0px; opacity: 0;"></span>
                 </ul>
             </div>
         </div>
         <div class="layui-body" id="layui-body">
             <div class="layui-tab layui-tab-brief main-layout-tab">
-                <ul class="layui-tab-title">
-                    <li class="welcome">后台主页<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
-                    <li lay-id="3" class="">文章管理<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
-                    <li lay-id="9" class="">单页管理<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
-                    <li lay-id="4" class="layui-this">邮件系统<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>
+                <ul class="layui-tab-title" id="menu_labes">
+                    <li class="welcome">后台主页
+                        <i class="layui-icon layui-unselect layui-tab-close">ဆ</i>
+                    </li>
                 </ul>
             </div>
             <div style="padding: 15px;">
@@ -102,22 +98,29 @@
     </div>
     <script src="./layui/layui.js"></script>
     <script src="./layui/vue.min.js"></script>
+    <script src="./layui/jquery.js"></script>
     <script src="./layui/main.js"></script>
     <script>
-    var memu_list = {"menu_list":{"0":{"name":"\u63a7\u5236\u53f0","icon":"layui-icon layui-icon-home","badge":"12","childs":{"0":{"name":"\u4e3b\u9875","icon":"layui-icon layui-icon-home","badge":"12"},"1":{"name":"\u7ec4\u4ef6","icon":"icon","badge":"12"}}},"1":{"name":"\u63a7\u5236\u53f01","icon":"layui-icon layui-icon-home","badge":"12","childs":{"0":{"name":"\u4e3b\u98751","icon":"layui-icon layui-icon-home","badge":"12"},"1":{"name":"\u7ec4\u4ef61","icon":"icon","badge":"12"}}}},"type":"1"};
+    var memu_list ={"list":[{"name":"控制台","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页","icon":"layui-icon layui-icon-home","badge":"12"},{"name":"主页","icon":"layui-icon layui-icon-home","badge":"12"}]},{"name":"组件","icon":"icon","badge":"12"}]},{"name":"控制台1","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页12","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页12","icon":"layui-icon layui-icon-home","badge":"12"},{"name":"主页12","icon":"layui-icon layui-icon-home","badge":"12"}]},{"name":"组件1","icon":"icon","badge":"12"}]}],"type":"1"};
 
-
+ var vue_data  = {
+            menu_list:memu_list.list,
+            menu_side:memu_list.list[0].childs,
+        };
+        plt.vue_option("#head_menu",vue_data);
+        plt.vue_option("#menu_list",vue_data);
 
     //JavaScript代码区域
     layui.use(['layer', 'util', "element"], function() {
-
-        plt.vue_option("#head_menu",memu_list);
-
+       
         var element = layui.element;
         var layer = layui.layer,
             $ = layui.jquery;
         var util = layui.util;
-        util.event('lay-active', {
+        var app_request_click = false;
+
+        util.event('lay-active', 
+        {
             app_flexible: function() {
                 if ($(this).hasClass("layui-icon-shrink-right")) {
                     $(this).removeClass("layui-icon-shrink-right");
@@ -133,10 +136,20 @@
                     $("#layui-body").removeClass("layui-body-all");
                 }
             },
-            app_request:function(){
-               var href = $(this).attr("lay-href");
-               alert(href);
-            }
+            app_request:function(evt){
+                app_request_click = true;
+                var href = $(this).attr("lay-href");
+                var text = $(this).find("cite").text();
+                $("#menu_labes li").removeClass("layui-this");
+                var lable_html = '<li lay-id="5" class="layui-this">'+text+'<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>';
+                $("#menu_labes").append(lable_html);
+            },
+            head_menu_click:function()
+            {
+                var id = $(this).attr("id");
+                vue_data.menu_side = memu_list.list[id].childs;
+            },
+            
         });
     });
     </script>
