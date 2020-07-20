@@ -72,8 +72,9 @@
                             <span class="layui-nav-more"></span></a>
                         <dl class="layui-nav-child">
                             <dd class="app_request" v-for="(menu1,key1) in menu.childs">
-                                <a lay-active="app_request" lay-href="home/console.html">
+                                <a lay-active="app_request" :id="menu1.id" :lay-href="menu1.href">
                                     <cite>{{menu1.name}}</cite>
+                                     <span class="layui-badge" v-if="menu1.badge"> {{ menu1.badge }}</span>
                                 </a>
                             </dd>
                             
@@ -91,8 +92,9 @@
                     </li>
                 </ul>
             </div>
-            <div style="padding: 15px;">
-                sssss
+            <div style="padding: 10px;">
+              <iframe src="http://www.baidu.com" width="1210px" height="550px">
+              </iframe>
             </div>
         </div>
     </div>
@@ -101,9 +103,9 @@
     <script src="./layui/jquery.js"></script>
     <script src="./layui/main.js"></script>
     <script>
-    var memu_list ={"list":[{"name":"控制台","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页","icon":"layui-icon layui-icon-home","badge":"12"},{"name":"主页","icon":"layui-icon layui-icon-home","badge":"12"}]},{"name":"组件","icon":"icon","badge":"12"}]},{"name":"控制台1","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页12","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页12","icon":"layui-icon layui-icon-home","badge":"12"},{"name":"主页12","icon":"layui-icon layui-icon-home","badge":"12"}]},{"name":"组件1","icon":"icon","badge":"12"}]}],"type":"1"};
+    var memu_list ={"list":[{"name":"控制台","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页","icon":"layui-icon layui-icon-home","href":"\/home\/index\/login","id":"1"},{"name":"主页","icon":"layui-icon layui-icon-home","badge":"12","href":"\/home\/index\/login1","id":"2"}]},{"name":"组件","icon":"icon","badge":"12"}]},{"name":"控制台1","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页12","icon":"layui-icon layui-icon-home","badge":"12","childs":[{"name":"主页12","icon":"layui-icon layui-icon-home","badge":"12","href":"\/home\/index\/login2"},{"name":"主页12","icon":"layui-icon layui-icon-home","badge":"12","href":"\/home\/index\/login3"}]},{"name":"组件1","icon":"icon","badge":"12"}]}],"type":"1"};
 
- var vue_data  = {
+    var vue_data  = {
             menu_list:memu_list.list,
             menu_side:memu_list.list[0].childs,
         };
@@ -117,7 +119,6 @@
         var layer = layui.layer,
             $ = layui.jquery;
         var util = layui.util;
-        var app_request_click = false;
 
         util.event('lay-active', 
         {
@@ -137,12 +138,17 @@
                 }
             },
             app_request:function(evt){
-                app_request_click = true;
                 var href = $(this).attr("lay-href");
+                var lth =  $("#li"+this.id).length;
+                if(parseInt(lth)>0)
+                {
+                    return;
+                }
                 var text = $(this).find("cite").text();
                 $("#menu_labes li").removeClass("layui-this");
-                var lable_html = '<li lay-id="5" class="layui-this">'+text+'<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>';
+                var lable_html = '<li id="li'+this.id+'" class="layui-this">'+text+'<i class="layui-icon layui-unselect layui-tab-close">ဆ</i></li>';
                 $("#menu_labes").append(lable_html);
+
             },
             head_menu_click:function()
             {

@@ -14,12 +14,15 @@ $menu_list = [
 					[
 						"name" => "主页",
 						"icon" => "layui-icon layui-icon-home",
-						"badge" => "12",
+						"href" => "/home/index/login",
+						"id" => "1",
 					],
 					[
 						"name" => "主页",
 						"icon" => "layui-icon layui-icon-home",
 						"badge" => "12",
+						"href" => "/home/index/login1",
+						"id" => "2",
 					],
 
 				],
@@ -45,11 +48,13 @@ $menu_list = [
 						"name" => "主页12",
 						"icon" => "layui-icon layui-icon-home",
 						"badge" => "12",
+						"href" => "/home/index/login2",
 					],
 					[
 						"name" => "主页12",
 						"icon" => "layui-icon layui-icon-home",
 						"badge" => "12",
+						"href" => "/home/index/login3",
 					],
 
 				],
